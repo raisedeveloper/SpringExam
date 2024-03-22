@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member List</title>
+</head>
+<body>
+    <h1>Member List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Member ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 멤버 리스트를 순회하며 출력 -->
+            <tr th:each="member, memberStat : ${members}">
+                <td th:if="${member.mid % 2 == 1}" style="color: blue;" th:text="${member.mid}"></td>
+                <td th:unless="${member.mid % 2 == 1}" style="color: red;" th:text="${member.mid}"></td>
+
+                
+                <td th:if="${memberStat.first}" style="background-color: yellow;" th:text="${member.name}"></td>
+                <td th:unless="${memberStat.first or memberStat.last}" style="background-color: beige;" th:text="${member.name}"></td>
+                <td th:if="${memberStat.last}" style="background-color: cyan;" th:text="${member.name}"></td>
+                
+                <td th:if="${member.age lt 20}" style="color: blue;" th:text="${member.age}"></td>
+                <td th:if="${member.age ge 20}" style="color: red;" th:text="${member.age}"></td>
+
+                <td th:if="${member.country eq '한국'}" style="background-color: orange;" th:text="${member.country}"></td>
+                <td th:if="${member.country eq '미국'}" style="background-color: skyblue;" th:text="${member.country}"></td>
+                <td th:unless="${member.country eq '한국' or member.country eq '미국'}" style="background-color: beige;" th:text="${member.country}"></td>
+              </tr>
+        </tbody>
+    </table>
+</body>
+</html>
